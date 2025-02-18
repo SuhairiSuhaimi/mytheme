@@ -1,0 +1,55 @@
+{#
+/**
+ * @file
+ * kym's theme implementation to display front page.
+ *
+ * The doctype, html, head and body tags are not in this template. Instead they
+ * can be found in the html.html.twig template.
+ *
+ */
+#}
+{% include '@kym/template-parts/header.html.twig' %}
+{# include '@kym/template-parts/breadcrumb_region.html.twig' #}
+{# include '@kym/template-parts/highlighted.html.twig' #}
+
+{% if page.slider or slider_show %}
+  <!-- Start: Slider -->
+  {% include '@kym/template-parts/slider.html.twig' %}
+  <!-- End: Slider -->
+{% endif %}
+
+<!-- Start: Content -->
+<div id="main-wrapper" class="main-wrapper front-page">
+  <div class="container">
+    <div class="main-container">
+      <main id="main" class="page-content">
+        <a id="main-content" tabindex="-1"></a>{# link is in html.html.twig #}
+        {% if page.content_top %}
+          {% include '@kym/template-parts/content_top.html.twig' %}
+        {% endif %}
+
+        {% if page.content %}
+          <div class="section section-content p-0">
+            {{ page.content }}
+          </div>
+        {% endif %}
+
+        {% if page.content_bottom %}
+          {% include '@kym/template-parts/content_bottom.html.twig' %}
+        {% endif %}
+      </main>
+    </div> {# /.main-container #}
+  </div> {# /.container #}
+</div>{# /main-wrapper #}
+<!-- End: Content -->
+
+{% include '@kym/template-parts/footer.html.twig' %}
+
+<style type="text/css">
+  #block-kym-4mini-statistic,
+  #block-kym-socialmediafeed {
+    background-color: transparent;
+    box-shadow: none;
+  }
+
+</style>

@@ -1,0 +1,194 @@
+<style type="text/css">
+  {% if slider_show and slider_image_path != '' and not page.slider|render|striptags %}
+    .slider.owlCarousel {
+      background-image: url({{ slider_image_path }});
+    }
+  {% elseif page.slider %}
+    .slider.owlCarousel {
+      background: var(--bg-body);
+      /*background-image: none !important;*/
+    }
+
+    .slider.owlCarousel .full_width {
+      max-width: 100% !important;
+      padding: 0px 1px;
+      width: 100% !important;
+    }
+
+    .owl-carousel:after {
+      content: "";
+      display: block;
+      position: absolute;
+      width: 8%;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      margin-left: 0;
+      pointer-events: none;
+      background: url() no-repeat center 50%;
+      background-size: 100% auto;
+    }
+
+    .owl-item li {
+      max-width: 100%;
+      position: absolute;
+      top: 0;
+      width: 100%;
+    }
+
+    .owl-item img {
+      display: block;
+      min-width: 100%;
+      width: 100%;
+      height: auto;
+    }
+
+  {% else %}
+    .slider.owlCarousel {
+      background-image: url({{ base_path ~ directory }}/images/slider.jpg);
+    }
+
+  {% endif %}
+
+/* Homepage Using OwlCarousel
+-------------------------------------------- */
+  .slider.owlCarousel {
+    position: relative;
+    width: 100%;
+    /*min-height: 100vh;*/
+    /*max-height: 95vh;*/
+    height: auto;
+    margin: 0 auto;
+    background-color: var(--bg-body);
+    /*background-image: url(../images/slider.jpg);*/
+    background-repeat: no-repeat;
+    background-position: center top;
+    background-size: cover;
+    overflow: hidden;
+    z-index: 2;
+  }
+
+  @media (max-width: 500px) {
+    .slider.owlCarousel {
+      max-height: 38vh;
+    }
+
+    .slider.owlCarousel .owl-dots {
+      display: none;
+    }
+
+  }
+
+  .slider.owlCarousel .owl-nav {
+    position: absolute;
+    /*top: 50%;*/
+    width: 100%;
+  }
+
+  .slider.owlCarousel button.owl-prev {
+    background: #b1b1b1 !important;
+    border-radius: 50%;
+    color: #ffffff !important;
+    display: flex;
+    float: left;
+    left: 30px;
+    opacity: 0.5;
+    padding: 20px 20px !important;
+    position: relative;
+  }
+
+  .slider.owlCarousel button.owl-next {
+    background: #b1b1b1 !important;
+    border-radius: 50%;
+    color: #ffffff !important;
+    display: flex;
+    float: right;
+    opacity: 0.5;
+    padding: 20px 20px !important;
+    position: relative;
+    right: 30px;
+  }
+
+  .slider.owlCarousel .owl-dots {
+    background-color: #b1b1b1;
+    border: 2px solid #ffffff;
+    border-radius: 10px;
+    padding: 5px 1px;
+    margin: auto;
+    opacity: 50%;
+    position: absolute;
+    /*bottom: 0;*/
+    left: 50%;
+    width: 100px;
+  }
+
+  .slider.owlCarousel .owl-dots button {
+    background: transparent;
+    border: 2px solid #ffffff;
+    height: 10px;
+    width: 10px;
+  }
+
+  .slider.owlCarousel .owl-dots button.active {
+    background: #ffffff;
+  }
+</style>
+
+<script type="text/javascript">
+  jQuery(document).ready(function ($) {
+    $('.home-slider').owlCarousel({
+      {#
+        //var owl = $('.home-slider');
+        //owl.owlCarousel({
+      #}
+      items: 1,
+      loop: true,
+      autoplay: {{ slider_autoplay }},
+      stagePadding: 0,
+      margin: 0,
+      singleItem: true,
+      nav: true,
+      navText: [
+        "<i class='fa fa-arrow-left'></i>",
+        "<i class='fa fa-arrow-right'></i>"
+      ],
+      dots: {{ slider_dots }},
+      autoplayTimeout: {{ slider_time }},
+    });
+
+    {% if page.slider %}
+      var width = parseInt( document.body.clientWidth ) - 20;
+      //console.log("width:", width);
+      //$('.owl-item').css('width', width);
+      var owlimg = parseInt( $('.owl-item').first().find('img').height() );
+      //console.log("img:", img);
+
+      var sliderimg = parseInt( $('.slider-image').first().height() );
+      console.log("slider-image:", sliderimg);
+      var space = sliderimg<250? 25:(sliderimg<400? 30:35 );
+
+      $('.slider').css('max-height', sliderimg);
+      $('.owl-nav').css('top', (sliderimg / 2) );
+      $('.owl-dots').css('top', (sliderimg - space) );
+
+      $(window).resize(function() {
+        console.log("window resize");
+        var img = parseInt( $('.slider-image').first().find('img').height() );
+        console.log("img:", img);
+        var gap = img<250? 25:(img<400? 30:35 );
+        console.log("gap:", gap);
+        {#
+          //image height and dots position
+          //517 => 482 = 35
+          //399 => 369 = 30
+          //307 => 277 = 30
+          //238 => 213 = 25
+        #}
+        $('.slider').css('max-height', img);
+        $('.owl-nav').css('top', (img / 2) );
+        $('.owl-dots').css('top', (img - gap) );
+      });
+
+    {% endif %}   
+  });
+</script>
