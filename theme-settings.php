@@ -305,30 +305,30 @@ function kym_form_system_theme_settings_alter(&$form, FormStateInterface $form_s
   // ];
 
   // Social -> Whatsapp.
-  $form['social']['whatsapp'] = [
-    '#type'        => 'details',
-    '#title'       => t("WhatsApp"),
-  ];
+  // $form['social']['whatsapp'] = [
+  //   '#type'        => 'details',
+  //   '#title'       => t("WhatsApp"),
+  // ];
 
-  $form['social']['whatsapp']['whatsapp_url'] = [
-    '#type'        => 'textfield',
-    '#title'       => t('WhatsApp'),
-    '#description' => t("Enter yours whatsapp url. Leave the url field blank to hide this icon."),
-    '#default_value' => theme_get_setting('whatsapp_url', 'kym'),
-  ];
+  // $form['social']['whatsapp']['whatsapp_url'] = [
+  //   '#type'        => 'textfield',
+  //   '#title'       => t('WhatsApp'),
+  //   '#description' => t("Enter yours whatsapp url. Leave the url field blank to hide this icon."),
+  //   '#default_value' => theme_get_setting('whatsapp_url', 'kym'),
+  // ];
 
   // Social -> YouTube.
-  $form['social']['youtube'] = [
-    '#type'        => 'details',
-    '#title'       => t("YouTube"),
-  ];
+  // $form['social']['youtube'] = [
+  //   '#type'        => 'details',
+  //   '#title'       => t("YouTube"),
+  // ];
 
-  $form['social']['youtube']['youtube_url'] = [
-    '#type'        => 'textfield',
-    '#title'       => t('YouTube Url'),
-    '#description' => t("Enter yours youtube.com page url. Leave the url field blank to hide this icon."),
-    '#default_value' => theme_get_setting('youtube_url', 'kym'),
-  ];
+  // $form['social']['youtube']['youtube_url'] = [
+  //   '#type'        => 'textfield',
+  //   '#title'       => t('YouTube Url'),
+  //   '#description' => t("Enter yours youtube.com page url. Leave the url field blank to hide this icon."),
+  //   '#default_value' => theme_get_setting('youtube_url', 'kym'),
+  // ];
 
   /**
    * Slider Settings
