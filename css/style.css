@@ -468,10 +468,16 @@ input[type=submit]:hover,
 input[type=button]:hover,
 input[type=reset]:hover,
 button:hover,
-.button:hover {
+.button:not(.no-hover):hover {
   background-color: transparent;
   border: 3px solid var(--bold-color);
   color: var(--bold-color);
+}
+
+.button.no-hover:hover {
+  background-color: var(--color-primary);
+  color: #ffffff;
+  border: 3px solid #ffffff;
 }
 
 .button2 {
@@ -485,10 +491,16 @@ button:hover,
   line-height: 1.6;
 }
 
-.button2:hover {
+.button2:not(.no-hover):hover {
   background-color: transparent;
   border: 3px solid var(--bold-color);
   color: var(--bold-color);
+}
+
+.button2.no-hover:hover {
+  background-color: var(--color-secondary);
+  color: #ffffff;
+  border: 3px solid #ffffff;
 }
 
 input[type=checkbox],
@@ -1050,6 +1062,10 @@ summary {
   top: 0;
 }
 
+#header .container {
+  padding: 0px !important;
+}
+
 /* Header top */
 .header-top {
   background-color: var(--color-white);
@@ -1185,6 +1201,19 @@ ul.social-icons a:hover {
   gap: 1rem;
   /*padding: 1rem 0;*/
   padding: 3px 0;
+}
+
+@media (min-width: 1200px) {
+  .header-container {
+    display: inline-flex;
+    width: 59%;
+  }
+
+  .header-link {
+    display: inline-block;
+    width: 40%;
+  }
+
 }
 
 /* site branding */
