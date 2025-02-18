@@ -1,0 +1,64 @@
+{%
+  set footer_classes = [
+    'footer_wrapper',
+    footer_fixed ? 'fixed'
+  ]
+%}
+
+{% if footer_fixed %}
+  <section id="last-section" class="last-section"></section>
+{% endif %}
+
+<!-- Start: Footer -->
+<footer id="footer" {{ create_attribute().addClass(footer_classes) }}>
+  <div id="footer_shader" class="footer-shader">
+    <div class="container">
+      {% include '@kym/template-parts/footer_top.html.twig' %}
+      {% include '@kym/template-parts/footer_middle.html.twig' %}
+
+      <div class="footer">
+        {{ page.footer }}
+      </div>
+
+      {% if page.credit_copyright or show_copyright %}
+        <div class="footer-credit-copyright">
+        {% if page.credit_copyright %}
+          <div class="footer-credit">
+            {{ page.credit_copyright }}
+          </div>
+        {% endif %}
+
+          <div class="footer-copyright">
+            {% if show_copyright and copyright_text %}
+              {{ copyright_text|replace({'%year%' : 'now'|date('Y')}) }}
+            {% elseif show_copyright %}
+              &copy; {{ 'now'|date('Y') }} {{ site_name }}, All rights reserved.
+            {% endif %} {# end condition for copyright_text #}
+          </div>
+        </div>
+      {% endif %} {# end condition for page.credit_copyright or show_copyright #}
+
+      {% include '@kym/template-parts/footer_bottom.html.twig' %}
+
+    </div><!-- /.container -->
+  </div> <!--/.footer -->
+</footer>
+<!-- End: Footer -->
+
+{% if scrolltotop_on %}
+<div class="scrolltop"><i class="icon-arrow-up" aria-hidden="true"></i></div>
+{% endif %}
+
+{% if fontawesome_four or font_awesome == 'fontawesome4' %}
+  {{ attach_library('kym/fontawesome4') }}
+{% endif %}
+{% if fontawesome_five or font_awesome == 'fontawesome5' %}
+  {{ attach_library('kym/fontawesome5') }}
+{% endif %}
+{% if fontawesome_six or font_awesome == 'fontawesome6' %}
+  {{ attach_library('kym/fontawesome6') }}
+{% endif %}
+
+{% if bootstrapicons %}
+  {{ attach_library('kym/bootstrap-icons') }}
+{% endif %}

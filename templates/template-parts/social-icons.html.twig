@@ -1,0 +1,37 @@
+<ul class="social-icons">
+  {% if all_icons_show %}
+    <li><a href="{{ base_path }}" target="_self" aria-label="Facebook page">
+      <img src="{{ base_path ~ directory }}/images/facebook.png" alt="Facebook" />
+    </a></li>
+    <li><a href="{{ base_path }}" target="_self" aria-label="Instagram page">
+      <img src="{{ base_path ~ directory }}/images/instagram.png" alt="Instagram" />
+    </a></li>
+    <li><a href="{{ base_path }}" target="_self" aria-label="TikTok page">
+      <img src="{{ base_path ~ directory }}/images/tiktok.png" alt="TikTok" />
+    </a></li>
+    <li><a href="{{ base_path }}" target="_self" aria-label="YouTube Page">
+      <img src="{{ base_path ~ directory }}/images/youtube.png" alt="Youtube" />
+    </a></li>
+  {% endif %}
+
+  {% if facebook_url != '' %}
+    <li><a href="{{ facebook_url }}" target="_blank" aria-label="Facebook page">
+      <img src="{{ base_path ~ directory }}/images/facebook.png" alt="Facebook" />
+    </a></li>
+  {% endif %}
+  {% if instagram_url != '' %}
+    <li><a href="{{ instagram_url }}" target="_blank" aria-label="Instagram page">
+      <img src="{{ base_path ~ directory }}/images/instagram.png" alt="Instagram" />
+    </a></li>
+  {% endif %}
+  {% if tiktok_url != '' %}
+    <li><a href="{{ tiktok_url }}" target="_blank" aria-label="TikTok page">
+      <img src="{{ base_path ~ directory }}/images/tiktok.png" alt="TikTok" />
+    </a></li>
+  {% endif %}
+  {% if youtube_url != '' %}
+    <li><a href="{{ youtube_url }}" target="_blank" aria-label="YouTube Page">
+      <img src="{{ base_path ~ directory }}/images/youtube.png" alt="Youtube" />
+    </a></li>
+  {% endif %}
+</ul>

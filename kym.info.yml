@@ -1,0 +1,46 @@
+name: kym
+type: theme
+base theme: stable9
+description: '<p>Tara is a light weight modern Drupal 8, 9, 10, 11 theme by <a href="https://drupar.com/" target="_blank">Drupar.com</a></p><p><a href="https://drupar.com/theme/tara" target="_blank">Theme Homepage</a> | <a href="https://drupar.com/kym-theme-documentation" target="_blank">User Guide</a></p>'
+
+# package: Drupar
+project: drupal
+core_version_requirement: ^9 || ^10 || ^11 || ^12
+
+version: 1.0.0
+# Comment version before uploading to drupal.org
+# version: 11.0.0
+
+# Information added by Drupal.org packaging script on 2024-08-05
+datestamp: 1722846888
+
+# Libraries
+libraries:
+  - kym/global-styling # Library for all global css. These css will be loaded on every pages.
+
+# Regions
+regions:
+  header_top: 'Header Top'
+  language_dropdown: 'Language Dropdown'
+  header: Header
+  site_branding: 'Site Branding'
+  primary_menu: 'Primary menu'
+  secondary_menu: 'Secondary menu'
+  search_box: 'Full Page Search'
+  highlighted: Highlighted
+  breadcrumb: Breadcrumb
+  slider: Slider
+  content_top: 'Content Top'
+  content: Content
+  content_bottom: 'Content Bottom'
+  #sidebar_first: 'Sidebar Left'
+  #sidebar_second: 'Sidebar Right'
+  footer_top: 'Footer Top'
+  footer_first: 'Footer first'
+  footer_second: 'Footer second'
+  footer_third: 'Footer third'
+  footer_fourth: 'Footer fourth'
+  footer: Footer
+  credit_copyright: 'Credit Copyright'
+  footer_bottom: 'Footer Bottom'
+  hidden_blocks: 'Hidden Blocks'

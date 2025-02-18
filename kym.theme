@@ -1,0 +1,127 @@
+<?php
+
+/**
+ * Contains kym theme override and preprocess functions.
+ */
+
+use Drupal\file\Entity\File;
+
+/**
+ * Sanitise input urls.
+ */
+function santise_val_url($url) {
+  if ($url != '') {
+
+    // Sanitise (remove all illegal characters) from url.
+    $url = filter_var($url, FILTER_SANITIZE_URL);
+
+    // Validate url.
+    if (filter_var($url, FILTER_VALIDATE_URL) == TRUE) {
+      $url = $url;
+    } else {
+      $url = '#';
+    }
+    return $url;
+  }
+}
+
+/**
+ * kym page preprocess.
+ * Define variables for theme settings.
+ */
+function kym_preprocess_page(array &$variables) {
+  $config = \Drupal::config('system.site');
+  $variables['site_name'] = $config->get('name');
+  $variables['site_slogan'] = $config->get('slogan');
+  $variables['slider_show'] = theme_get_setting('slider_show', 'kym');
+  $variables['slider_code'] = theme_get_setting('slider_code', 'kym');
+  $variables['all_icons_show'] = theme_get_setting('all_icons_show', 'kym');
+  $variables['show_header_icon'] = theme_get_setting('show_header_icon', 'kym');
+  $variables['show_footer_icon'] = theme_get_setting('show_footer_icon', 'kym');
+  $variables['footer_icon_hashtag'] = theme_get_setting('footer_icon_hashtag', 'kym');
+  $variables['facebook_url'] = santise_val_url(theme_get_setting('facebook_url', 'kym'));
+  $variables['twitter_url'] = santise_val_url(theme_get_setting('twitter_url', 'kym'));
+  $variables['instagram_url'] = santise_val_url(theme_get_setting('instagram_url', 'kym'));
+  $variables['linkedin_url'] = santise_val_url(theme_get_setting('linkedin_url', 'kym'));
+  $variables['youtube_url'] = santise_val_url(theme_get_setting('youtube_url', 'kym'));
+  $variables['vk_url'] = santise_val_url(theme_get_setting('vk_url', 'kym'));
+  $variables['vimeo_url'] = santise_val_url(theme_get_setting('vimeo_url', 'kym'));
+  $variables['whatsapp_url'] = santise_val_url(theme_get_setting('whatsapp_url', 'kym'));
+  $variables['github_url'] = santise_val_url(theme_get_setting('github_url', 'kym'));
+  $variables['telegram_url'] = santise_val_url(theme_get_setting('telegram_url', 'kym'));
+  $variables['tiktok_url'] = santise_val_url(theme_get_setting('tiktok_url', 'kym'));
+  $variables['header_sticky'] = theme_get_setting('header_sticky', 'kym');
+  $variables['footer_fixed'] = theme_get_setting('footer_fixed', 'kym');
+  $variables['scrolltotop_on'] = theme_get_setting('scrolltotop_on', 'kym');
+  $variables['show_copyright'] = theme_get_setting('show_copyright', 'kym');
+  $variables['copyright_text'] = theme_get_setting('copyright_text', 'kym');
+  $variables['front_sidebar'] = theme_get_setting('front_sidebar', 'kym');
+  $variables['font_awesome'] = theme_get_setting('font_awesome', 'kym');
+  $variables['fontawesome_four'] = theme_get_setting('fontawesome_four', 'kym');
+  $variables['fontawesome_five'] = theme_get_setting('fontawesome_five', 'kym');
+  $variables['fontawesome_six'] = theme_get_setting('fontawesome_six', 'kym');
+  $variables['bootstrapicons'] = theme_get_setting('bootstrapicons', 'kym');
+}
+
+/* *
+ * Node preprocess.
+ */
+function kym_preprocess_node(array &$variables) {
+  $variables['node_author_pic'] = theme_get_setting('node_author_pic', 'kym');
+  $variables['node_tags'] = theme_get_setting('node_tags', 'kym');
+}
+
+/* *
+ * Comment preprocess.
+ */
+function kym_preprocess_comment(array &$variables) {
+  $variables['comment_user_pic'] = theme_get_setting('comment_user_pic', 'kym');
+}
+
+/**
+ * Html preprocess for kym theme.
+ * Adds body classes if certain regions have content.
+ * Used for creating different page layout.
+ */
+function kym_preprocess_html(&$variables) {
+  $variables['base_path'] = base_path();
+  $variables['google_font'] = theme_get_setting('google_font', 'kym');
+  // Add variables for theme Settings
+  $variables['css_extra'] = theme_get_setting('css_extra', 'kym');
+  $variables['css_code'] = theme_get_setting('css_code', 'kym');
+  $variables['slider_show'] = theme_get_setting('slider_show', 'kym');
+  $variables['slider_autoplay'] = theme_get_setting('slider_autoplay', 'kym');
+  $variables['slider_time'] = theme_get_setting('slider_time', 'kym');
+  $variables['slider_dots'] = theme_get_setting('slider_dots', 'kym');
+  $variables['is_front'] = \Drupal::service('path.matcher')->isFrontPage();
+  // Slider image
+  $variables['slider_image'] = theme_get_setting('slider_image', 'kym');
+  $slider_image_id = theme_get_setting('slider_image', 'kym');
+  if(!empty($slider_image_id)) {
+    $slider_image_file = File::load($slider_image_id[0]);
+    $slider_image_file->setPermanent();
+    $slider_image_file->save();
+    $slider_image_file_usage = \Drupal::service('file.usage');
+    $slider_image_file_usage->add($slider_image_file, 'kym', 'theme', $slider_image_id[0]);
+  };
+  if(!empty($slider_image_file)) {
+    $imageuri = $slider_image_file->getFileUri();
+    $variables['slider_image_path'] = \Drupal::service('file_url_generator')->generateAbsoluteString($imageuri);
+  };
+}
+
+/* *
+ * Add current page to breadcrumb.
+ */
+function kym_preprocess_breadcrumb(&$variables) {
+  $request = \Drupal::request();
+  $route_match = \Drupal::routeMatch();
+  $page_title = \Drupal::service('title_resolver')->getTitle($request, $route_match->getRouteObject());
+  if (!empty($page_title)) {
+    $variables['breadcrumb'][] = [
+      'text' => $page_title,
+    ];
+    // Add cache context based on url.
+    $variables['#cache']['contexts'][] = 'url';
+  }
+}
