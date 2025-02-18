@@ -27,6 +27,7 @@ regions:
   primary_menu: 'Primary menu'
   secondary_menu: 'Secondary menu'
   search_box: 'Full Page Search'
+  header_link: 'Header Link'
   highlighted: Highlighted
   breadcrumb: Breadcrumb
   slider: Slider
