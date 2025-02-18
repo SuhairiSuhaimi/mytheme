@@ -1223,6 +1223,14 @@ ul.social-icons a:hover {
   line-height: 1;
 }
 
+img.logo-xxs {
+  width: 30px;
+}
+
+img.logo-xs {
+  width: 35px;
+}
+
 img.logo-sm {
   width: 45px;
 }
