@@ -386,6 +386,22 @@ function kym_form_system_theme_settings_alter(&$form, FormStateInterface $form_s
     '#description' => t('Time interval between two slides. Default value is 5000, this means 5 seconds.'),
   ];
 
+  $form['slider']['slider_navigation_field'] = [
+    '#type'        => 'fieldset',
+    '#title'       => t('Slider Next & Previus Navigation'),
+  ];
+
+  $form['slider']['slider_navigation_field']['slider_navigation'] = [
+    '#type'        => 'select',
+    '#title'       => t('Show or Hide Slider Next & Previus Navigation button'),
+    '#options'     => array(
+      'true'      => t('Show'),
+      'false'     => t('Hide')
+    ),
+    '#default_value' => theme_get_setting('slider_navigation', 'kym'),
+    '#description' => t('Show or hide navigation (Next & Previus) button on the slider.'),
+  ];
+
   $form['slider']['slider_dots_field'] = [
     '#type'        => 'fieldset',
     '#title'       => t('Slider Dots Navigation'),

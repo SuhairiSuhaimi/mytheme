@@ -92,6 +92,7 @@ function kym_preprocess_html(&$variables) {
   $variables['slider_show'] = theme_get_setting('slider_show', 'kym');
   $variables['slider_autoplay'] = theme_get_setting('slider_autoplay', 'kym');
   $variables['slider_time'] = theme_get_setting('slider_time', 'kym');
+  $variables['slider_navigation'] = theme_get_setting('slider_navigation', 'kym');
   $variables['slider_dots'] = theme_get_setting('slider_dots', 'kym');
   $variables['is_front'] = \Drupal::service('path.matcher')->isFrontPage();
   // Slider image
