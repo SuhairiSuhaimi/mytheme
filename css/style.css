@@ -75,7 +75,7 @@ body {
 
 /* Regions
 ----------------------- */
-article,
+content,
 aside,
 details,
 figcaption,
@@ -216,7 +216,7 @@ mark,
 ins {
   padding: 4px 8px;
   background: var(--bold-color);
-  color: var(--light);
+  color: var(--color-white);
   text-decoration: none;
 }
 
@@ -264,6 +264,10 @@ var {
 
 .font3 {
   color: var(--color-primary); 
+}
+
+.title {
+  color: var(--color-black);
 }
 
 /* Typography -> Blockquote */
@@ -456,7 +460,7 @@ button,
 .button {
   display: inline-block;
   background-color: var(--color-primary);
-  color: var(--light);
+  color: var(--color-white);
   padding: 8px 1rem;
   border: 3px solid var(--light);
   border-radius: 2rem;
@@ -476,14 +480,14 @@ button:hover,
 
 .button.no-hover:hover {
   background-color: var(--color-primary);
-  color: var(--light);
+  color: var(--color-white);
   border: 3px solid var(--light);
 }
 
 .button2 {
   display: inline-block;
   background-color: var(--color-secondary);
-  color: var(--light);
+  color: var(--color-white);
   padding: 8px 1rem;
   border: 3px solid var(--light);
   border-radius: 2rem;
@@ -499,7 +503,7 @@ button:hover,
 
 .button2.no-hover:hover {
   background-color: var(--color-secondary);
-  color: var(--light);
+  color: var(--color-white);
   border: 3px solid var(--light);
 }
 
@@ -663,7 +667,7 @@ td {
 th {
   background: var(--color-primary);
   font-family: var(--font-heading);
-  color: var(--light);
+  color: var(--color-white);
   margin: 0;
   padding: 10px;
   border: 2px solid var(--border);
@@ -672,7 +676,7 @@ th {
 }
 
 th a {
-  color: var(--light);
+  color: var(--color-white);
 }
 
 td {
@@ -766,18 +770,18 @@ summary {
 ----------------------- */
 ::-moz-selection {
   background: var(--color-primary);
-  color: var(--light);
+  color: var(--color-white);
   text-shadow: none;
 }
 ::selection {
   background: var(--color-primary);
-  color: var(--light);
+  color: var(--color-white);
   text-shadow: none;
 }
 
 ::-moz-selection {
   background: var(--color-primary);
-  color: var(--light);
+  color: var(--color-white);
   text-shadow: none;
 }
 
@@ -1032,13 +1036,13 @@ summary {
 
 .button-action {
   background-color: var(--color-secondary);
-  color: var(--light);
+  color: var(--color-white);
   padding: 6px 12px;
 }
 
 .button-action:hover {
   background-color: var(--color-primary);
-  color: var(--light);
+  color: var(--color-white);
 }
 
 /* Vertical tabs */
@@ -1075,7 +1079,7 @@ summary {
 /* Header top */
 .header-top {
   /*background-color: var(--color-primary-light);*/
-  background-color: var(--color-white);
+  background-color: var(--light);
 }
 
 .header-top-container {
@@ -1197,7 +1201,7 @@ summary {
 
 ul.social-icons a:hover {
   background: var(--color-primary);
-  color: var(--light);
+  color: var(--color-white);
 }
 
 /* header for branding and main menu */
@@ -1352,7 +1356,7 @@ header select.lang-dropdown-select-element {
   right: 2px;
   display: grid;
   place-content: center;
-  color: var(--light);
+  color: var(--color-white);
   font-size: 1rem;
   width: 34px;
   height: 34px;
@@ -1404,7 +1408,7 @@ header select.lang-dropdown-select-element {
 
 .region-primary-menu .menu {
   display: flex;
-  color: var(--light);
+  color: var(--color-white);
   font-family: var(--font-heading);
   font-size: 1rem;
   font-weight: 400;
@@ -1430,7 +1434,7 @@ header select.lang-dropdown-select-element {
 
 .region-primary-menu .menu a {
   display: block;
-  color: var(--light);
+  color: var(--color-white);
   padding: 0.5rem 0;
 }
 
@@ -1517,7 +1521,7 @@ header select.lang-dropdown-select-element {
 }
 
 .search-box-content .block-title {
-  color: var(--light);
+  color: var(--color-white);
 }
 
 .search-box-content form label {
@@ -1528,7 +1532,7 @@ header select.lang-dropdown-select-element {
   width: 100%;
   padding: 1.4rem;
   background-color: var(--color-black);
-  color: var(--light);
+  color: var(--color-white);
   border: 2px solid var(--border);
   border-radius: 6px;
   outline: 0;
@@ -1541,7 +1545,7 @@ header select.lang-dropdown-select-element {
 }
 
 .search-box-content input[type=submit]:hover {
-  color: var(--light);
+  color: var(--color-white);
   border-color: var(--color-primary);
 }
 
@@ -1757,7 +1761,7 @@ header select.lang-dropdown-select-element {
 .footer-bottom a:hover,
 .footer-bottom a:active,
 .footer-bottom a:visited {
-  color: var(--light);
+  color: var(--color-white);
 }
 
 /* Footer -> Footer Bottom last*/
@@ -1939,13 +1943,13 @@ ul.inline li {
 li.node-readmore a {
   padding: 6px 12px;
   background: var(--color-primary);
-  color: var(--light);
+  color: var(--color-white);
   transition: background 0.4s ease;
 }
 
 li.node-readmore a:hover {
   background: var(--bold-color);
-  color: var(--light);
+  color: var(--color-white);
 }
 
 .node-view-mode-teaser li.comment-add,
@@ -2396,14 +2400,14 @@ ol.search-results li {
 ------------------------*/
 .message {
   position: relative;
-  color: var(--light);
+  color: var(--color-white);
   text-shadow: none;
   margin: 20px 0;
   padding: 14px 14px 14px 64px;
 }
 
 .message em {
-  color: var(--light);
+  color: var(--color-white);
   font-style: italic;
   border-bottom: 1px dotted var(--light);
 }
@@ -2413,7 +2417,7 @@ ol.search-results li {
 }
 
 .message a, .message a:visited {
-  color: var(--light);
+  color: var(--color-white);
   text-decoration: none;
 }
 
@@ -2503,7 +2507,7 @@ form .description {
 }
 
 .page-tabs .active-page-tab a {
-  color: var(--light);
+  color: var(--color-white);
 }
 
 .page-tabs li:hover {
@@ -2512,7 +2516,7 @@ form .description {
 }
 
 .page-tabs li:hover a {
-  color: var(--light);
+  color: var(--color-white);
 }
 
 /* Pager
@@ -2551,7 +2555,7 @@ form .description {
   display: grid;
   place-content: center;
   background-color: var(--color-primary);
-  color: var(--light);
+  color: var(--color-white);
   height: 40px;
   min-width: 40px;
 }
@@ -2574,7 +2578,7 @@ form .description {
 .pager__item a:hover,
 .pager__item.is-active a {
   background-color: var(--color-primary);
-  color: var(--light);
+  color: var(--color-white);
   border-color: var(--light);
 }
 
@@ -2839,7 +2843,7 @@ form .description {
 
 .service:hover i {
   background: var(--color-primary);
-  color: var(--light);
+  color: var(--color-white);
 }
 
 .service p:last-of-type {
@@ -2877,7 +2881,7 @@ form .description {
   place-content: center;
   background: rgba(0, 0, 0, 0.8);
   padding: 1rem;
-  color: var(--light);
+  color: var(--color-white);
   cursor: pointer;
   text-align: center;
   opacity: 0;
@@ -2894,13 +2898,13 @@ form .description {
 .project-content h4,
 .project-content h5 {
   font-weight: 300;
-  color: var(--light);
+  color: var(--color-white);
 }
 
 .project-content a,
 .project-content a:visited,
 .project-content a:hover {
-  color: var(--light);
+  color: var(--color-white);
 }
 
 /* Scroll To Top
@@ -2915,7 +2919,7 @@ form .description {
   width: 48px;
   height: 48px;
   background: var(--bold-color);
-  color: var(--light);
+  color: var(--color-white);
   border-radius: 6px;
   z-index: 20;
   cursor: pointer;
@@ -3528,7 +3532,7 @@ div#sliding-popup, div#sliding-popup .eu-cookie-withdraw-banner, .eu-cookie-with
 
 .eu-cookie-compliance-buttons .button:hover {
   background-color: var(--bold-color);
-  color: var(--light);
+  color: var(--color-white);
 }
 
 /* Clearing
@@ -3821,10 +3825,10 @@ div#sliding-popup, div#sliding-popup .eu-cookie-withdraw-banner, .eu-cookie-with
   .region-primary-menu .menu-item-level-1:hover {
     /*background-color: var(--bold-color);*/
     background-color: transparent;
-    /*color: var(--light);*/
+    /*color: var(--color-white);*/
   }
   .region-primary-menu .menu-item-level-1:hover > a {
-    /*color: var(--light);*/
+    /*color: var(--color-white);*/
     background-color: transparent;
   }
   .region-primary-menu .menu-item-level-1 a,
@@ -3837,7 +3841,7 @@ div#sliding-popup, div#sliding-popup .eu-cookie-withdraw-banner, .eu-cookie-with
   .region-primary-menu .menu-item-level-1 > span:hover {
     /*background-color: var(--bold-color);*/
     background-color: transparent;
-    /*color: var(--light);*/
+    /*color: var(--color-white);*/
   }
   .menu-item-has-children {
     position: relative;
@@ -3894,7 +3898,7 @@ div#sliding-popup, div#sliding-popup .eu-cookie-withdraw-banner, .eu-cookie-with
   }
   .region-primary-menu .submenu a,
   .region-primary-menu .submenu li > span {
-    /*color: var(--light);*/
+    /*color: var(--color-white);*/
     color: var(--bold-color);
     /*padding: 0.5rem 0;*/
   }
@@ -3911,7 +3915,7 @@ div#sliding-popup, div#sliding-popup .eu-cookie-withdraw-banner, .eu-cookie-with
     top: 0;
   }
   .submenu .menu-item-has-children::after {
-    color: var(--light);
+    color: var(--color-white);
   }
   .mobile-menu,
   .close-mobile-menu {
