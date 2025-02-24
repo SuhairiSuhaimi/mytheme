@@ -5,8 +5,8 @@ global-styling:
     theme:
       css/style.css: {}
     base:
-      /sites/MaterialDashboard.css-3.1.0/material-dashboard.css: {}
-      /sites/Animate.css-4.1.1/animate.compat.css: {}
+      css/material-dashboard.css: {}
+      css/animate.compat.css: {}
   js:
     js/kym.js: {}
   dependencies:
