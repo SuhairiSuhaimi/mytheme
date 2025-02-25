@@ -2941,7 +2941,8 @@ form .description {
   justify-content: center;
   align-items: center;
   right: 10px;
-  bottom: 10px;
+  /*bottom: 10px;*/
+  bottom: 40%;
   width: 48px;
   height: 48px;
   background: var(--bold-color);
