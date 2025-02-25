@@ -270,6 +270,18 @@ var {
   color: var(--color-black);
 }
 
+.text-upper {
+  text-transform: uppercase;
+}
+
+.text-lower {
+  text-transform: lowercase;
+}
+
+.text-capital {
+  text-transform: capitalize;
+}
+
 /* Typography -> Blockquote */
 blockquote,
 [dir=rtl] blockquote {
@@ -807,6 +819,11 @@ summary {
   z-index: 2;
 }
 
+.main-wrapper.front-page {
+  /*background-image: url(/sites/default/files/images/shapes.svg);*/
+  clear: both;
+}
+
 .main-container {
   position: relative;
   display: grid;
@@ -1107,7 +1124,7 @@ summary {
     clear: both;
   }
 
-  .header-top-center>* {
+  .header-top-center.content-right>* {
     float: left !important;
   }
 
@@ -2038,6 +2055,15 @@ ol.breadcrumb-items li {
   margin: 0 0 3rem 0;
 }
 
+.layout--twocol-section .layout__region--first > .block {
+  padding-right: .75rem;
+}
+
+.layout--twocol-section .layout__region--second > .block {
+  padding-left: .75rem;
+}
+
+.grid.block,
 .grid-block {
   background-color: var(--light);
   box-shadow: var(--shadow);
