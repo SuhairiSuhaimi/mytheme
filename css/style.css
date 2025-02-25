@@ -3896,8 +3896,7 @@ div#sliding-popup, div#sliding-popup .eu-cookie-withdraw-banner, .eu-cookie-with
     margin-top: 2px;
   }
   .region-primary-menu .submenu li {
-    /*padding: 0;*/
-    padding: 0.5rem 0;
+    padding: 0;
     border-top: 0;
     /*border-bottom: 1px solid var(--border);*/
     border-bottom: 0;
