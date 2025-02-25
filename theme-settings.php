@@ -388,18 +388,18 @@ function kym_form_system_theme_settings_alter(&$form, FormStateInterface $form_s
 
   $form['slider']['slider_navigation_field'] = [
     '#type'        => 'fieldset',
-    '#title'       => t('Slider Next & Previus Navigation'),
+    '#title'       => t('Slider Next & Previous Navigation'),
   ];
 
   $form['slider']['slider_navigation_field']['slider_navigation'] = [
     '#type'        => 'select',
-    '#title'       => t('Show or Hide Slider Next & Previus Navigation button'),
+    '#title'       => t('Show or Hide Slider Next & Previous Navigation button'),
     '#options'     => array(
       'true'      => t('Show'),
       'false'     => t('Hide')
     ),
     '#default_value' => theme_get_setting('slider_navigation', 'kym'),
-    '#description' => t('Show or hide navigation (Next & Previus) button on the slider.'),
+    '#description' => t('Show or hide navigation (Next & Previous) button on the slider.'),
   ];
 
   $form['slider']['slider_dots_field'] = [
