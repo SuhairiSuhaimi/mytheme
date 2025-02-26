@@ -1452,7 +1452,8 @@ header select.lang-dropdown-select-element {
 .region-primary-menu .menu a {
   display: block;
   color: var(--color-white);
-  padding: 0.5rem 0;
+  /*padding: 0.5rem 0;*/
+  padding: 0;
 }
 
 .menu-item-has-children {
