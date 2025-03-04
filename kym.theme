@@ -61,6 +61,19 @@ function kym_preprocess_page(array &$variables) {
   $variables['fontawesome_five'] = theme_get_setting('fontawesome_five', 'kym');
   $variables['fontawesome_six'] = theme_get_setting('fontawesome_six', 'kym');
   $variables['bootstrapicons'] = theme_get_setting('bootstrapicons', 'kym');
+
+  // Get the base path
+  $base_path = \Drupal::request()->getBasePath();
+
+  // Get the theme path
+  //$theme_path = \Drupal::theme()->getActiveTheme()->getPath();
+  $theme_path =  \Drupal::service('theme_handler')->getTheme('kym')->getPath();
+
+  // Attach the theme path to drupalSettings
+  $variables['#attached']['drupalSettings']['kym'] = [
+    'basePath' => $base_path,
+    'themePath' => $theme_path,
+  ];
 }
 
 /* *
