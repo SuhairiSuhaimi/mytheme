@@ -12,6 +12,29 @@ global-styling:
   dependencies:
     - core/jquery
 
+#addcss
+kymcss:
+  version: VERSION
+  css:
+    component:
+      css/style.css: {}
+
+# articlejs
+articlejs:
+  version: VERSION
+  js:
+    js/article.js: {}
+  dependencies:
+    - core/jquery
+
+# printjs
+printjs:
+  version: VERSION
+  js:
+    js/print.js: {}
+  dependencies:
+    - core/jquery
+
 # Slider
 slider:
   version: 2.3.4
