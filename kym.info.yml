@@ -33,6 +33,7 @@ regions:
   slider: Slider
   content_top: 'Content Top'
   content: Content
+  share_block: 'Share block'
   content_bottom: 'Content Bottom'
   #sidebar_first: 'Sidebar Left'
   #sidebar_second: 'Sidebar Right'
