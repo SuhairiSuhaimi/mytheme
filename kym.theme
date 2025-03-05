@@ -63,7 +63,8 @@ function kym_preprocess_page(array &$variables) {
   $variables['bootstrapicons'] = theme_get_setting('bootstrapicons', 'kym');
 
   // Get the base path
-  $base_path = \Drupal::request()->getBasePath();
+  //$base_path = \Drupal::request()->getBasePath();
+  $base_path = base_path();
 
   // Get the theme path
   //$theme_path = \Drupal::theme()->getActiveTheme()->getPath();
@@ -82,6 +83,52 @@ function kym_preprocess_page(array &$variables) {
 function kym_preprocess_node(array &$variables) {
   $variables['node_author_pic'] = theme_get_setting('node_author_pic', 'kym');
   $variables['node_tags'] = theme_get_setting('node_tags', 'kym');
+
+  $node = $variables['node'];
+
+  // Get the node author (owner)
+  $author = $node->getOwner();
+
+  // Add author to template variables
+  $variables['authorname'] = $author->getDisplayName();
+
+
+  // Get the creation timestamp
+  $created_time = $node->getCreatedTime();
+
+  // Add created date to template variables
+  $variables['created_date'] = date('d/m/Y', $created_time);
+
+  // Ensure field_tags exist.
+  if ($node->hasField('field_tags') && !$node->get('field_tags')->isEmpty()) {
+    // Get the taxonomy terms associated with this field.
+    $terms = $node->get('field_tags')->referencedEntities();
+
+    // Process the terms (e.g., get their names).
+    $taxonomy_data = [];
+    foreach ($terms as $term) :
+      $taxonomy_data[] = [
+        'name' => $term->getName(),  // Term name
+        'id' => $term->id(),         // Term ID
+        'url' => $term->toUrl()->toString(),  // Term URL
+      ];
+    endforeach;
+
+    // Pass the processed term names to Twig.
+    $variables['taxonomy_data'] = $taxonomy_data;
+  }
+
+  // Ensure field_publisher_article is exist.
+  if ($node->hasField('field_publisher_article') && !$node->get('field_publisher_article')->isEmpty()) {
+    // Get the publisher term name or any other field.
+    $publisher_term = $node->get('field_publisher_article')->entity;
+
+    // Pass the publisher term name to the template.
+    if ($publisher_term) {
+      $variables['publisher_name'] = $publisher_term->getName();
+    }
+  }
+
 }
 
 /* *
