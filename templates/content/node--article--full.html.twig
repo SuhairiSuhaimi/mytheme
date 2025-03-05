@@ -91,10 +91,10 @@ set node_classes = [
       <div class="w-100 py-0 pe-2">
         <div class="article-image">
           {% if node.field_image_article %}
-            <img class="img_article border-radius-2xl" src="{{ node.field_image_article|file_url }}" alt="">
+            <img class="img-article border-radius-2xl" src="{{ node.field_image_article|file_url }}" alt="">
 
           {% else %}
-            <img class="img_article border-radius-2xl" src="/sites/default/files/images/no-image.png" alt="">
+            <img class="img-article border-radius-2xl" src="/sites/default/files/images/no-image.png" alt="">
           {% endif %}
         </div>
       </div>
@@ -200,7 +200,7 @@ set node_classes = [
 </content>
 
 <style type="text/css">
-  img.img_article {
+  img.img-article {
     width: 100%;
     max-height: 330px;
   }
