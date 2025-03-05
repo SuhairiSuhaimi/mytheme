@@ -85,96 +85,98 @@ set node_classes = [
   {# page-title #}
   <div class="title text-xlg fw-bolder py-4">{{ node.label }}</div>
 
-  <div class="content-header grid grid2-50-50">
-    {# article image #}
-    <div class="w-100 py-0 pe-2">
-      <div class="article-image">
-        {% if node.field_image_article %}
-          <img class="img_article border-radius-2xl" src="{{ node.field_image_article|file_url }}" alt="">
+  <div class="content-header">
+    <div class="grid grid2-50-50">
+      {# article image #}
+      <div class="w-100 py-0 pe-2">
+        <div class="article-image">
+          {% if node.field_image_article %}
+            <img class="img_article border-radius-2xl" src="{{ node.field_image_article|file_url }}" alt="">
 
-        {% else %}
-          <img class="img_article border-radius-2xl" src="/sites/default/files/images/no-image.png" alt="">
-        {% endif %}
-      </div>
-    </div>
-
-    <div class="w-100 py-0 px-5">
-      <div class="node-date">
-        <div class="label hide">Publish date:</div>
-        <div class="display d-inline fw-bold">
-          {{ node.created.value|date('d/m/Y') }}
+          {% else %}
+            <img class="img_article border-radius-2xl" src="/sites/default/files/images/no-image.png" alt="">
+          {% endif %}
         </div>
       </div>
 
-      <div class="node-author py-2">
-        <div class="label d-inline">Ditulis oleh:</div>
-        <div class="display d-inline">
-          <a href="/user/{{ node.getOwnerId() }}/contact">
-            <span class="fw-bold text-capital">{{ node.getOwner.label }}</span>
-          </a>
-        </div>
-      </div>
-
-      {% if node.field_link_article is not empty %}
-        {% set url = node.field_link_article.uri %}
-        <div class="node-publisher no-print py-2">
-          <div class="label">Platform Penerbitan:</div>
-          <div class="display">
-            {% if node.field_link_article.0.url.external %}
-              <a class="button w-70 text-center" href="{{ url }}" target="_blank">
-                Baca di {{ publisher_name }}
-                <i class="fas fa-arrow-right float-end mt-1"></i>
-              </a>
-
-            {% else %}
-              <a class="button w-70 text-center" href="{{ url|replace({"internal:": ""}) }}">
-                Baca di {{ publisher_name }}
-                <i class="fas fa-arrow-right float-end mt-1"></i>
-              </a>
-            {% endif %}
+      <div class="w-100 py-0 px-5">
+        <div class="node-date">
+          <div class="label hide">Publish date:</div>
+          <div class="display d-inline fw-bold">
+            {{ node.created.value|date('d/m/Y') }}
           </div>
         </div>
-      {% endif %}
 
-      <div class="node-download no-print py-2">
-        <div class="label hidden">Download:</div>
-        <div class="display">
-          <a id="downloadthis" class="button w-70 text-center" href="javascript:;">
-            <i class="fas fa-download float-start mt-1"></i>
-            Muat Turun Bahan
-          </a>
+        <div class="node-author py-2">
+          <div class="label d-inline">Ditulis oleh:</div>
+          <div class="display d-inline">
+            <a href="/user/{{ node.getOwnerId() }}/contact">
+              <span class="fw-bold text-capital">{{ node.getOwner.label }}</span>
+            </a>
+          </div>
+        </div>
+
+        {% if node.field_link_article is not empty %}
+          {% set url = node.field_link_article.uri %}
+          <div class="node-publisher no-print py-2">
+            <div class="label">Platform Penerbitan:</div>
+            <div class="display">
+              {% if node.field_link_article.0.url.external %}
+                <a class="button w-70 text-center" href="{{ url }}" target="_blank">
+                  Baca di {{ publisher_name }}
+                  <i class="fas fa-arrow-right float-end mt-1"></i>
+                </a>
+
+              {% else %}
+                <a class="button w-70 text-center" href="{{ url|replace({"internal:": ""}) }}">
+                  Baca di {{ publisher_name }}
+                  <i class="fas fa-arrow-right float-end mt-1"></i>
+                </a>
+              {% endif %}
+            </div>
+          </div>
+        {% endif %}
+
+        <div class="node-download no-print py-2">
+          <div class="label hidden">Download:</div>
+          <div class="display">
+            <a id="downloadthis" class="button w-70 text-center" href="javascript:;">
+              <i class="fas fa-download float-start mt-1"></i>
+              Muat Turun Bahan
+            </a>
+          </div>
+        </div>
+
+        <div class="node-share no-print py-2">
+          {% set share_block = drupal_region('share_block', 'kym', true) %}
+          {% if share_block %}
+            <div class="text-sm mb-1">Kongsi:</div>
+            {{ share_block }}
+          {% endif %}
         </div>
       </div>
+    </div>
 
-      <div class="node-share no-print py-2">
-        {% set share_block = drupal_region('share_block', 'kym', true) %}
-        {% if share_block %}
-          <div class="text-sm mb-1">Kongsi:</div>
-          {{ share_block }}
-        {% endif %}
+    {% if taxonomy_data is not empty %}
+      <div class="node-tag no-print mb-3 py-1">
+        <div class="display d-inline">Tags:</div>
+        <ul class="d-inline">
+          {% set n = 0 %}
+          {% for term in taxonomy_data %}
+            {% if n > 0 %}
+              ,
+            {% endif %}
+
+            <li class="d-inline">
+              <a href="{{ term.url }}">{{ term.name }}</a> {# ( {{ term.id }} ) #}
+            </li>
+
+            {% set n = n + 1 %}
+          {% endfor %}
+        </ul>
       </div>
-    </div>
+    {% endif %}
   </div>
-
-  {% if taxonomy_data is not empty %}
-    <div class="content-tag no-print py-1">
-      <div class="display d-inline">Tags:</div>
-      <ul class="d-inline">
-        {% set n = 0 %}
-        {% for term in taxonomy_data %}
-          {% if n > 0 %}
-            ,
-          {% endif %}
-
-          <li class="d-inline">
-            <a href="{{ term.url }}">{{ term.name }}</a> {# ( {{ term.id }} ) #}
-          </li>
-
-          {% set n = n + 1 %}
-        {% endfor %}
-      </ul>
-    </div>
-  {% endif %}
 
   {%
     set contentbody = {
@@ -201,6 +203,10 @@ set node_classes = [
   img.img_article {
     width: 100%;
     max-height: 330px;
+  }
+
+  .node-share .block {
+    margin: 0px !important;
   }
 
   div.content-body {
