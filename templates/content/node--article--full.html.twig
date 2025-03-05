@@ -1,0 +1,237 @@
+{#
+/**
+ * @file
+ * Theme implementation to display a node.
+ *
+ * Available variables:
+ * - node: The node entity with limited access to object properties and methods.
+ *   Only method names starting with "get", "has", or "is" and a few common
+ *   methods such as "id", "label", and "bundle" are available. For example:
+ *   - node.getCreatedTime() will return the node creation timestamp.
+ *   - node.hasField('field_example') returns TRUE if the node bundle includes
+ *     field_example. (This does not indicate the presence of a value in this
+ *     field.)
+ *   - node.isPublished() will return whether the node is published or not.
+ *   Calling other methods, such as node.delete(), will result in an exception.
+ *   See \Drupal\node\Entity\Node for a full list of public properties and
+ *   methods for the node object.
+ * - label: The title of the node.
+ * - content: All node items. Use {{ content }} to print them all,
+ *   or print a subset such as {{ content.field_example }}. Use
+ *   {{ content|without('field_example') }} to temporarily suppress the printing
+ *   of a given child element.
+ * - author_picture: The node author user entity, rendered using the "compact"
+ *   view mode.
+ * - metadata: Metadata for this node.
+ * - date: Themed creation date field.
+ * - author_name: Themed author name field.
+ * - url: Direct URL of the current node.
+ * - display_submitted: Whether submission information should be displayed.
+ * - attributes: HTML attributes for the containing element.
+ *   The attributes.class element may contain one or more of the following
+ *   classes:
+ *   - node: The current template type (also known as a "theming hook").
+ *   - node--type-[type]: The current node type. For example, if the node is an
+ *     "Article" it would result in "node--type-article". Note that the machine
+ *     name will often be in a short form of the human readable label.
+ *   - node--view-mode-[view_mode]: The View Mode of the node; for example, a
+ *     teaser would result in: "node--view-mode-teaser", and
+ *     full: "node--view-mode-full".
+ *   The following are controlled through the node publishing options.
+ *   - node--promoted: Appears on nodes promoted to the front page.
+ *   - node--sticky: Appears on nodes ordered above other non-sticky nodes in
+ *     teaser listings.
+ *   - node--unpublished: Appears on unpublished nodes visible only to site
+ *     admins.
+ * - title_attributes: Same as attributes, except applied to the main title
+ *   tag that appears in the template.
+ * - content_attributes: Same as attributes, except applied to the main
+ *   content tag that appears in the template.
+ * - author_attributes: Same as attributes, except applied to the author of
+ *   the node tag that appears in the template.
+ * - title_prefix: Additional output populated by modules, intended to be
+ *   displayed in front of the main title tag that appears in the template.
+ * - title_suffix: Additional output populated by modules, intended to be
+ *   displayed after the main title tag that appears in the template.
+ * - view_mode: View mode; for example, "teaser" or "full".
+ * - teaser: Flag for the teaser state. Will be true if view_mode is 'teaser'.
+ * - page: Flag for the full page state. Will be true if view_mode is 'full'.
+ * - readmore: Flag for more state. Will be true if the teaser content of the
+ *   node cannot hold the main body content.
+ * - logged_in: Flag for authenticated user status. Will be true when the
+ *   current user is a logged-in member.
+ * - is_admin: Flag for admin user status. Will be true when the current user
+ *   is an administrator.
+ *
+ * @see template_preprocess_node()
+ */
+#}
+{%
+set node_classes = [
+  'node',
+  'article',
+  'node-type-' ~ node.bundle|clean_class,
+  node.isPromoted() ? 'node-promoted',
+  node.isSticky() ? 'node-sticky',
+  not node.isPublished() ? 'node-unpublished',
+  view_mode ? 'node-view-mode-' ~ view_mode|clean_class,
+]
+%}
+
+<content{{ attributes.addClass(node_classes) }}>
+  {# content-type #}
+  <div class="content-type no-print text-sm fw-normal">Artikel</div>
+
+  {# page-title #}
+  <div class="title text-xlg fw-bolder py-4">{{ node.label }}</div>
+
+  <div class="content-header grid grid2-50-50">
+    {# article image #}
+    <div class="w-100 py-0 pe-2">
+      <div class="article-image">
+        {% if node.field_image_article %}
+          <img class="img_article border-radius-2xl" src="{{ node.field_image_article|file_url }}" alt="">
+
+        {% else %}
+          <img class="img_article border-radius-2xl" src="/sites/default/files/images/no-image.png" alt="">
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="w-100 py-0 px-5">
+      <div class="node-date">
+        <div class="label hide">Publish date:</div>
+        <div class="display d-inline fw-bold">
+          {{ node.created.value|date('d/m/Y') }}
+        </div>
+      </div>
+
+      <div class="node-author py-2">
+        <div class="label d-inline">Ditulis oleh:</div>
+        <div class="display d-inline">
+          <a href="/user/{{ node.getOwnerId() }}/contact">
+            <span class="fw-bold text-capital">{{ node.getOwner.label }}</span>
+          </a>
+        </div>
+      </div>
+
+      {% if node.field_link_article is not empty %}
+        {% set url = node.field_link_article.uri %}
+        <div class="node-publisher no-print py-2">
+          <div class="label">Platform Penerbitan:</div>
+          <div class="display">
+            {% if node.field_link_article.0.url.external %}
+              <a class="button w-70 text-center" href="{{ url }}" target="_blank">
+                Baca di {{ publisher_name }}
+                <i class="fas fa-arrow-right float-end mt-1"></i>
+              </a>
+
+            {% else %}
+              <a class="button w-70 text-center" href="{{ url|replace({"internal:": ""}) }}">
+                Baca di {{ publisher_name }}
+                <i class="fas fa-arrow-right float-end mt-1"></i>
+              </a>
+            {% endif %}
+          </div>
+        </div>
+      {% endif %}
+
+      <div class="node-download no-print py-2">
+        <div class="label hidden">Download:</div>
+        <div class="display">
+          <a id="downloadthis" class="button w-70 text-center" href="javascript:;">
+            <i class="fas fa-download float-start mt-1"></i>
+            Muat Turun Bahan
+          </a>
+        </div>
+      </div>
+
+      <div class="node-share no-print py-2">
+        {% set share_block = drupal_region('share_block', 'kym', true) %}
+        {% if share_block %}
+          <div class="text-sm mb-1">Kongsi:</div>
+          {{ share_block }}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  {% if taxonomy_data is not empty %}
+    <div class="content-tag no-print py-1">
+      <div class="display d-inline">Tags:</div>
+      <ul class="d-inline">
+        {% set n = 0 %}
+        {% for term in taxonomy_data %}
+          {% if n > 0 %}
+            ,
+          {% endif %}
+
+          <li class="d-inline">
+            <a href="{{ term.url }}">{{ term.name }}</a> {# ( {{ term.id }} ) #}
+          </li>
+
+          {% set n = n + 1 %}
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+
+  {%
+    set contentbody = {
+      '#type': 'processed_text',
+      '#text':  node.body.value,
+      '#format': node.body.format,
+    }
+  %}
+  {% set body_text = node.body.value %}
+  {% set max_length = 1000 %}
+  {% set max = (body_text|length / max_length)|round %}
+  <div class="content-body" style="height: 500px">
+    {{ content.body }}
+  </div> {# article-body #}
+
+  <div class="div_button no-print">
+    <div class="div_space blur"></div>
+    <a id="read_more" class="button3 no-hover" data="1" max="{{ max }}">Baca Selanjutnya</a>
+    <a id="read_less" class="button no-hover hide">Lihat Kurang</a>
+  </div>
+</content>
+
+<style type="text/css">
+  img.img_article {
+    width: 100%;
+    max-height: 330px;
+  }
+
+  div.content-body {
+    overflow: hidden;
+  }
+
+  div.div_button {
+    margin-top: -50px;
+    text-align: center;
+    width: 100%;
+  }
+
+  div.div_space {
+    height: 50px;
+  }
+
+  div.div_space.blur {
+    background: #fff;
+    filter: blur(5px);
+    opacity: 0.75;
+  }
+
+  #read_more,
+  #read_less {
+    cursor: pointer;
+  }
+
+  .hide {
+    display: none;
+  }
+</style>
+
+{{ attach_library('kym/articlejs') }}
+{{ attach_library('kym/printjs') }}
