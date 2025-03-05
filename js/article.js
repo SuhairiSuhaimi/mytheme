@@ -35,19 +35,4 @@ jQuery(document).ready(function ($) {
         $('#read_more').attr('data', 1).removeClass('hide').show();
         $('.scrolltop').trigger('click');
     });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 });
