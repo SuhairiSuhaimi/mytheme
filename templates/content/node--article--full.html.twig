@@ -91,10 +91,10 @@ set node_classes = [
       <div class="w-100 py-0 pe-2">
         <div class="article-image">
           {% if node.field_image_article %}
-            <img class="img-article border-radius-2xl" src="{{ node.field_image_article|file_url }}" alt="">
+            <img class="img-article border-radius-2xl" src="{{ node.field_image_article|file_url }}">
 
           {% else %}
-            <img class="img-article border-radius-2xl" src="/sites/default/files/images/no-image.png" alt="">
+            <img class="img-article border-radius-2xl" src="/sites/default/files/images/no-image.png">
           {% endif %}
         </div>
       </div>
