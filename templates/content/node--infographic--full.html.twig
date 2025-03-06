@@ -181,11 +181,9 @@ set node_classes = [
             {% if n > 0 %}
               ,
             {% endif %}
-
             <li class="d-inline">
               <a href="{{ term.url }}">{{ term.name }}</a> {# ( {{ term.id }} ) #}
             </li>
-
             {% set n = n + 1 %}
           {% endfor %}
         </ul>
@@ -203,7 +201,7 @@ set node_classes = [
   {% set body_text = node.body.value %}
   {% set max_length = 1000 %}
   {% set max = (body_text|length / max_length)|round %}
-  <div class="content-body hide" style="height: 500px">
+  <div class="content-body hide">
     {% if node.field_image_infographic is not empty %}
       <div class="grid grid2-50-50">
         {% for image in node.field_image_infographic %}
