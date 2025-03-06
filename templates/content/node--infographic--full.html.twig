@@ -1,0 +1,378 @@
+{#
+/**
+ * @file
+ * Theme implementation to display a node.
+ *
+ * Available variables:
+ * - node: The node entity with limited access to object properties and methods.
+ *   Only method names starting with "get", "has", or "is" and a few common
+ *   methods such as "id", "label", and "bundle" are available. For example:
+ *   - node.getCreatedTime() will return the node creation timestamp.
+ *   - node.hasField('field_example') returns TRUE if the node bundle includes
+ *     field_example. (This does not indicate the presence of a value in this
+ *     field.)
+ *   - node.isPublished() will return whether the node is published or not.
+ *   Calling other methods, such as node.delete(), will result in an exception.
+ *   See \Drupal\node\Entity\Node for a full list of public properties and
+ *   methods for the node object.
+ * - label: The title of the node.
+ * - content: All node items. Use {{ content }} to print them all,
+ *   or print a subset such as {{ content.field_example }}. Use
+ *   {{ content|without('field_example') }} to temporarily suppress the printing
+ *   of a given child element.
+ * - author_picture: The node author user entity, rendered using the "compact"
+ *   view mode.
+ * - metadata: Metadata for this node.
+ * - date: Themed creation date field.
+ * - author_name: Themed author name field.
+ * - url: Direct URL of the current node.
+ * - display_submitted: Whether submission information should be displayed.
+ * - attributes: HTML attributes for the containing element.
+ *   The attributes.class element may contain one or more of the following
+ *   classes:
+ *   - node: The current template type (also known as a "theming hook").
+ *   - node--type-[type]: The current node type. For example, if the node is an
+ *     "Infographic" it would result in "node--type-infographic". Note that the machine
+ *     name will often be in a short form of the human readable label.
+ *   - node--view-mode-[view_mode]: The View Mode of the node; for example, a
+ *     teaser would result in: "node--view-mode-teaser", and
+ *     full: "node--view-mode-full".
+ *   The following are controlled through the node publishing options.
+ *   - node--promoted: Appears on nodes promoted to the front page.
+ *   - node--sticky: Appears on nodes ordered above other non-sticky nodes in
+ *     teaser listings.
+ *   - node--unpublished: Appears on unpublished nodes visible only to site
+ *     admins.
+ * - title_attributes: Same as attributes, except applied to the main title
+ *   tag that appears in the template.
+ * - content_attributes: Same as attributes, except applied to the main
+ *   content tag that appears in the template.
+ * - author_attributes: Same as attributes, except applied to the author of
+ *   the node tag that appears in the template.
+ * - title_prefix: Additional output populated by modules, intended to be
+ *   displayed in front of the main title tag that appears in the template.
+ * - title_suffix: Additional output populated by modules, intended to be
+ *   displayed after the main title tag that appears in the template.
+ * - view_mode: View mode; for example, "teaser" or "full".
+ * - teaser: Flag for the teaser state. Will be true if view_mode is 'teaser'.
+ * - page: Flag for the full page state. Will be true if view_mode is 'full'.
+ * - readmore: Flag for more state. Will be true if the teaser content of the
+ *   node cannot hold the main body content.
+ * - logged_in: Flag for authenticated user status. Will be true when the
+ *   current user is a logged-in member.
+ * - is_admin: Flag for admin user status. Will be true when the current user
+ *   is an administrator.
+ *
+ * @see template_preprocess_node()
+ */
+#}
+{%
+set node_classes = [
+  'node',
+  'infographic',
+  'node-type-' ~ node.bundle|clean_class,
+  node.isPromoted() ? 'node-promoted',
+  node.isSticky() ? 'node-sticky',
+  not node.isPublished() ? 'node-unpublished',
+  view_mode ? 'node-view-mode-' ~ view_mode|clean_class,
+]
+%}
+
+<content{{ attributes.addClass(node_classes) }}>
+  {# content-type #}
+  <div class="content-type no-print text-sm fw-normal">Infografik</div>
+
+  {# page-title #}
+  <div class="title text-xlg fw-bolder py-4">{{ node.label }}</div>
+
+  <div class="content-header no-print">
+    <div class="grid grid2-60-40">
+      {# infographic image #}
+      <div class="w-100 py-0 pe-2">
+        {% if node.field_image_infographic is not empty %}
+          {% if node.field_image_infographic|length > 1 %}
+          <div id="slider" class="infographic-image owlCarousel border-radius-2xl">
+            <ul class="owl-carousel slider">
+              {% for image in node.field_image_infographic %}
+                <li>
+                  <img class="img-infographic" src="{{ image|file_url }}">
+                  {% if image.title %}
+                    <div class="image-title text-center text-sm">
+                      {{ image.title }}
+                    </div>
+                  {% endif %}
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
+
+          {% else %}
+            <div class="infographic-image">
+              <img class="img-infographic" src="{{ node.field_image_infographic.0|file_url }}">
+              {% if node.field_image_infographic.0.title %}
+                <div class="image-title text-center text-sm">
+                  {{ node.field_image_infographic.0.title }}
+                </div>
+              {% endif %}
+            </div>
+          {% endif %}
+
+        {% else %}
+          <div class="infographic-image">
+            <img class="img-infographic border-radius-2xl" src="/sites/default/files/images/no-image.png">
+          </div>
+        {% endif %}
+      </div>
+
+      <div class="w-100 py-0 px-5">
+        <div class="node-body py-2">
+          <div class="display text-left">
+            {{ node.body.value|t() }}
+          </div>
+        </div>
+
+        {% if node.field_link_infographic is not empty %}
+          {% set url = node.field_link_infographic.uri %}
+          <div class="node-social no-print py-2">
+            <div class="label hide">Social Media:</div>
+            <div class="display text-center">
+              {% if node.field_link_infographic.0.url.external %}
+                <a class="button w-70 text-center" href="{{ url }}" target="_blank">
+                  Social Media
+                  <i class="fas fa-arrow-right float-end mt-1"></i>
+                </a>
+
+              {% else %}
+                <a class="button w-70 text-center" href="{{ url|replace({"internal:": ""}) }}">
+                  Social Media
+                  <i class="fas fa-arrow-right float-end mt-1"></i>
+                </a>
+              {% endif %}
+            </div>
+          </div>
+        {% endif %}
+
+        <div class="node-download no-print py-2">
+          <div class="label hide">Download:</div>
+          <div class="display text-center">
+            <a id="downloadthis" class="button w-70 text-center" href="javascript:;">
+              <i class="fas fa-download float-start mt-1"></i>
+              Muat Turun Bahan
+            </a>
+          </div>
+        </div>
+
+        <div class="node-share no-print py-2">
+          {% set share_block = drupal_region('share_block', 'kym', true) %}
+          {% if share_block %}
+            <div class="text-sm mb-1">Kongsi:</div>
+            {{ share_block }}
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    {% if taxonomy_data is not empty %}
+      <div class="node-tag no-print mb-3 py-1">
+        <div class="display d-inline">Tags:</div>
+        <ul class="d-inline">
+          {% set n = 0 %}
+          {% for term in taxonomy_data %}
+            {% if n > 0 %}
+              ,
+            {% endif %}
+
+            <li class="d-inline">
+              <a href="{{ term.url }}">{{ term.name }}</a> {# ( {{ term.id }} ) #}
+            </li>
+
+            {% set n = n + 1 %}
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+  </div>
+
+  {%
+    set contentbody = {
+      '#type': 'processed_text',
+      '#text':  node.body.value,
+      '#format': node.body.format,
+    }
+  %}
+  {% set body_text = node.body.value %}
+  {% set max_length = 1000 %}
+  {% set max = (body_text|length / max_length)|round %}
+  <div class="content-body hide" style="height: 500px">
+    {% if node.field_image_infographic is not empty %}
+      <div class="grid grid2-50-50">
+        {% for image in node.field_image_infographic %}
+          <div class="infographic-image py-3 px-1">
+            <img class="img-infographic" src="{{ image|file_url }}">
+            {% if image.title %}
+              <div class="image-title text-center text-sm">
+                {{ image.title }}
+              </div>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <div class="display pt-3">
+      {{ content.body }}
+    </div>
+  </div> {# infographic-body #}
+</content>
+
+<style type="text/css">
+  :root {
+    --max-height-web: 75vh;
+    --max-height-mobile: 50vh;
+  } 
+
+  div.infographic-image:not(#slider) {
+    max-height: var(--max-height-web);
+  }
+
+  img.img-infographic {
+    width: 100%;
+    height: auto;
+  }
+
+  .node-share .block {
+    margin: 0px !important;
+  }
+
+  div.content-body {
+    overflow: hidden;
+  }
+
+  .hide {
+    display: none;
+  }
+
+/* Using OwlCarousel
+-------------------------------------------- */
+  #slider {
+    position: relative;
+    width: 100%;
+    height: auto;
+    margin: 0 auto;
+    background-color: var(--bg-body);
+    background-image: none;
+    background-repeat: no-repeat;
+    background-position: center top;
+    background-size: cover;
+    overflow: hidden;
+    z-index: 2;
+  }
+
+  @media (max-width: 500px) {
+    div.infographic-image:not(#slider) {
+      max-height: var(--max-height-mobile);
+    }
+
+    #slider .owl-dots {
+      display: none;
+    }
+  }
+
+  ul.slider {
+    list-style: none;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    max-height: var(--max-height-web);
+    height: auto;
+    width: 100%;
+    z-index: 5;
+  }
+
+  .owl-item li {
+    max-width: 100%;
+    position: absolute;
+    top: 0;
+    width: 100%;
+  }
+
+  .owl-item img {
+    min-width: 100%;
+    height: auto;
+  }
+
+  #slider .owl-nav {
+    position: absolute;
+    top: 40%;
+    width: 100%;
+  }
+
+  #slider button.owl-prev {
+    background: #b1b1b1 !important;
+    border-radius: 50%;
+    color: #ffffff !important;
+    display: flex;
+    float: left;
+    left: 0px;
+    opacity: 0.5;
+    padding: 20px 20px !important;
+    position: relative;
+  }
+
+  #slider button.owl-next {
+    background: #b1b1b1 !important;
+    border-radius: 50%;
+    color: #ffffff !important;
+    display: flex;
+    float: right;
+    opacity: 0.5;
+    padding: 20px 20px !important;
+    position: relative;
+    right: 0px;
+  }
+
+  #slider .owl-dots {
+    background-color: #b1b1b1;
+    border: 2px solid #ffffff;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    padding: 2px 1px;
+    margin: auto;
+    opacity: 50%;
+    position: absolute;
+    top: 85%;
+    left: 45%;
+    width: 100px;
+    z-index: 15;
+  }
+
+  #slider .owl-dots button {
+    background: transparent;
+    border: 2px solid #ffffff;
+    border-radius: 50%;
+    margin: 0 4px;
+    height: 10px;
+    width: 10px;
+  }
+
+  #slider .owl-dots button.active {
+    background: #ffffff;
+  }
+
+  @media (max-width: 767.9px) {
+    .grid2-60-40 {
+      grid-template-columns: 100%;
+    }
+
+    .grid2-60-40 > div {
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+  }
+</style>
+
+{{ attach_library('kym/owlcarousel') }}
+{{ attach_library('kym/infographicjs') }}
+{{ attach_library('kym/printjs') }}

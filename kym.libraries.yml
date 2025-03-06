@@ -19,6 +19,14 @@ kymcss:
     component:
       css/style.css: {}
 
+# printjs
+printjs:
+  version: VERSION
+  js:
+    js/print.js: {}
+  dependencies:
+    - core/jquery
+
 # articlejs
 articlejs:
   version: VERSION
@@ -27,11 +35,11 @@ articlejs:
   dependencies:
     - core/jquery
 
-# printjs
-printjs:
+# infographicjs
+infographicjs:
   version: VERSION
   js:
-    js/print.js: {}
+    js/infographic.js: {}
   dependencies:
     - core/jquery
 
