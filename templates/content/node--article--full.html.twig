@@ -89,7 +89,7 @@ set node_classes = [
     <div class="grid grid2-50-50">
       {# article image #}
       <div class="w-100 py-0 pe-2">
-        <div class="article-image">
+        <div class="article-image text-center">
           {% if node.field_image_article is not empty %}
             <img class="img-article border-radius-2xl" src="{{ node.field_image_article|file_url }}">
 
@@ -186,7 +186,8 @@ set node_classes = [
   {% set body_text = node.body.value %}
   {% set max_length = 1000 %}
   {% set max = (body_text|length / max_length)|round %}
-  <div class="content-body" style="height: 500px">
+  {% set style = max > 1 ? 'height: 500px;' %}
+  <div class="content-body" style="{{ style }}">
     <div class="display">
       {{ content.body }}
     </div>

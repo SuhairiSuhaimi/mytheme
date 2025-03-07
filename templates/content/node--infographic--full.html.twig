@@ -91,13 +91,13 @@ set node_classes = [
       <div class="w-100 py-0 pe-2">
         {% if node.field_image_infographic is not empty %}
           {% if node.field_image_infographic|length > 1 %}
-          <div id="slider" class="infographic-image owlCarousel border-radius-2xl">
+          <div id="slider" class="infographic-image text-center owlCarousel border-radius-2xl">
             <ul class="owl-carousel slider">
               {% for image in node.field_image_infographic %}
                 <li>
                   <img class="img-infographic" src="{{ image|file_url }}">
                   {% if image.title %}
-                    <div class="image-title text-center text-sm">
+                    <div class="image-title text-sm">
                       {{ image.title }}
                     </div>
                   {% endif %}
@@ -107,10 +107,10 @@ set node_classes = [
           </div>
 
           {% else %}
-            <div class="infographic-image">
+            <div class="infographic-image text-center">
               <img class="img-infographic" src="{{ node.field_image_infographic.0|file_url }}">
               {% if node.field_image_infographic.0.title %}
-                <div class="image-title text-center text-sm">
+                <div class="image-title text-sm">
                   {{ node.field_image_infographic.0.title }}
                 </div>
               {% endif %}
@@ -118,7 +118,7 @@ set node_classes = [
           {% endif %}
 
         {% else %}
-          <div class="infographic-image">
+          <div class="infographic-image text-center">
             <img class="img-infographic border-radius-2xl" src="/sites/default/files/images/no-image.png">
           </div>
         {% endif %}
@@ -205,10 +205,10 @@ set node_classes = [
     {% if node.field_image_infographic is not empty %}
       <div class="grid grid2-50-50">
         {% for image in node.field_image_infographic %}
-          <div class="infographic-image py-3 px-1">
+          <div class="infographic-image text-center py-3 px-1">
             <img class="img-infographic" src="{{ image|file_url }}">
             {% if image.title %}
-              <div class="image-title text-center text-sm">
+              <div class="image-title text-sm">
                 {{ image.title }}
               </div>
             {% endif %}
@@ -235,7 +235,7 @@ set node_classes = [
 
   img.img-infographic {
     width: 100%;
-    height: auto;
+    max-height: 330px;
   }
 
   .node-share .block {
