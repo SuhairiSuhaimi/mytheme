@@ -91,20 +91,20 @@ set node_classes = [
       <div class="w-100 py-0 pe-2">
         {% if node.field_image_infographic is not empty %}
           {% if node.field_image_infographic|length > 1 %}
-          <div id="slider" class="infographic-image text-center owlCarousel border-radius-2xl">
-            <ul class="owl-carousel slider">
-              {% for image in node.field_image_infographic %}
-                <li>
-                  <img class="img-infographic" src="{{ image|file_url }}">
-                  {% if image.title %}
-                    <div class="image-title text-sm">
-                      {{ image.title }}
-                    </div>
-                  {% endif %}
-                </li>
-              {% endfor %}
-            </ul>
-          </div>
+            <div id="slider" class="infographic-image text-center owlCarousel border-radius-2xl">
+              <ul class="owl-carousel slider">
+                {% for image in node.field_image_infographic %}
+                  <li>
+                    <img class="img-infographic" src="{{ image|file_url }}">
+                    {% if image.title %}
+                      <div class="image-title text-sm">
+                        {{ image.title }}
+                      </div>
+                    {% endif %}
+                  </li>
+                {% endfor %}
+              </ul>
+            </div>
 
           {% else %}
             <div class="infographic-image text-center">
