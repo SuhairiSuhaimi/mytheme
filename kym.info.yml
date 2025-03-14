@@ -46,3 +46,7 @@ regions:
   credit_copyright: 'Credit Copyright'
   footer_bottom: 'Footer Bottom'
   hidden_blocks: 'Hidden Blocks'
+
+# service
+services:
+  - Drupal\kym\DependencyInjection\KymServiceProvider

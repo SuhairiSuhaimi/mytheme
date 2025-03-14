@@ -1,0 +1,225 @@
+/* Variables
+----------------------- */
+:root {
+  --max-height-web: 75vh;
+  --max-height-mobile: 50vh;
+}
+  
+img.img-article,
+img.img-infographic,
+img.img-video {
+  width: 100%;
+  max-height: 330px;
+}
+  
+div.infographic-image:not(#slider) {
+  max-height: var(--max-height-web);
+}
+
+/* Basic dropdown container */
+.dropdown-container {
+  position: relative;
+  display: block;
+}
+  
+/* Initially hide the dropdown menu */
+.dropdown-menu {
+  background-color: var(--bg-body);
+  border: 1px solid var(--border);
+  display: none;
+  position: absolute;
+  padding: 10px;
+  min-width: 160px;  /* Set a minimum width for the dropdown */
+  left: 20%;
+  z-index: 100;
+}
+  
+/* Show the dropdown menu when the parent is hovered */
+.dropdown-container:hover .dropdown-menu {
+  display: block;
+}
+  
+/* Style the links inside the dropdown */
+.dropdown-menu a {
+  color: var(--text-color);
+  text-decoration: none;
+  display: block;
+  padding: 8px 0px;
+}
+  
+.dropdown-menu a:hover {
+  background-color: #f1f1f1;
+}
+  
+.dropdown-menu .menu {
+  list-style: none;
+  list-style-type: none;
+  padding: 0px;
+}
+  
+.node-share #block-kym-addtoanybuttons {
+  margin: 0px !important;
+}
+
+.node-share.inline div,
+.node-share.inline #block-kym-addtoanybuttons {
+  display: inline-block;
+  width: auto !important;
+}
+  
+div.content-body {
+  overflow: hidden;
+}
+  
+div.div_button {
+  margin-top: -100px;
+  text-align: center;
+  width: 100%;
+}
+  
+div.div_space {
+  height: 100px;
+}
+  
+div.div_space.blur {
+  opacity: 0.75;
+}
+  
+#read_more,
+#read_less {
+  cursor: pointer;
+}
+  
+.hide {
+  display: none !important;
+}
+  
+/* Using OwlCarousel
+-------------------------------------------- */
+#slider {
+  position: relative;
+  width: 100%;
+  height: auto;
+  margin: 0 auto;
+  background-color: var(--bg-body);
+  background-image: none;
+  background-repeat: no-repeat;
+  background-position: center top;
+  background-size: cover;
+  overflow: hidden;
+  z-index: 2;
+}
+  
+@media (max-width: 500px) {
+  div.infographic-image:not(#slider) {
+    max-height: var(--max-height-mobile);
+  }
+  
+  #slider .owl-dots {
+    display: none !important;
+  }
+}
+  
+ul.slider {
+  list-style: none;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  max-height: var(--max-height-web);
+  height: auto;
+  width: 100%;
+  z-index: 5;
+}
+  
+.owl-item li {
+  max-width: 100%;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+  
+.owl-item img {
+  min-width: 100%;
+  height: auto;
+}
+  
+#slider .owl-nav {
+  position: absolute;
+  top: 40%;
+  width: 100%;
+}
+  
+#slider button.owl-prev {
+  background: #b1b1b1 !important;
+  border-radius: 50%;
+  color: #ffffff !important;
+  display: flex;
+  float: left;
+  left: 0px;
+  opacity: 0.5;
+  padding: 20px 20px !important;
+  position: relative;
+}
+  
+#slider button.owl-next {
+  background: #b1b1b1 !important;
+  border-radius: 50%;
+  color: #ffffff !important;
+  display: flex;
+  float: right;
+  opacity: 0.5;
+  padding: 20px 20px !important;
+  position: relative;
+  right: 0px;
+}
+  
+#slider .owl-dots {
+  background-color: #b1b1b1;
+  border: 2px solid #ffffff;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  padding: 2px 1px;
+  margin: auto;
+  opacity: 50%;
+  position: absolute;
+  top: 85%;
+  left: 45%;
+  width: 100px;
+  z-index: 15;
+}
+  
+#slider .owl-dots button {
+  background: transparent;
+  border: 2px solid #ffffff;
+  border-radius: 50%;
+  margin: 0 4px;
+  height: 10px;
+  width: 10px;
+}
+  
+#slider .owl-dots button.active {
+  background: #ffffff;
+}
+  
+div.video-image {
+  max-height: var(--max-height-web);
+}
+  
+div.video-image iframe {
+  width: 681px;
+  height: 383px;
+}
+  
+@media (max-width: 767.9px) {
+  .grid2-60-40 {
+    grid-template-columns: 100%;
+  }
+  
+  .grid2-60-40 > div {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+}
+
