@@ -1,8 +1,8 @@
-(function ($) {
-    $(document).ready(function () {
+(function($) {
+    $(document).ready(function() {
         // When the "Read more" button is clicked
-        $('#read_more').click(function () {
-            div = $('.content-body');
+        $('#read_more').click(function() {
+            var div = $('.content-body');
             var div_height = div.height();
             var data = parseInt( $(this).attr('data') );
             var max = parseInt( $(this).attr('max') );
@@ -29,7 +29,7 @@
             }
         });
 
-        $('#read_less').click(function () {
+        $('#read_less').click(function() {
             $(this).addClass('hide').hide();
             $('.content-body').height(500);
             $('.div_space').addClass('blur');
@@ -39,14 +39,12 @@
 
     });
 
-    $(window).on('load', function () {
+    $(window).on('load', function() {
         var max = parseInt( $('#max_paragraph').val() );
-        console.log("max", max);
 
-        if (max === 1) { console.log("max === 1");
-
+        if (max === 1) {
         }
-        else { console.log("max > 1");
+        else {
             $('.content-body').height(500);
 
             //$('#read_less').trigger('click');
@@ -54,4 +52,5 @@
 
     });
 
-}) (jQuery);
+}
+)(jQuery);

@@ -2,7 +2,7 @@
     $(document).ready(function() {
         // When the "copy" button is clicked
         $('#copy_url').click(function() {
-            var $input = $('#video_link');
+            var $input = $('#interview_link');
             var $button = $(this);
             var $copy = $('#copy_text');
             var $icon = $('#icon_copy');
@@ -46,7 +46,7 @@
 
 // Fallback function to use execCommand if Clipboard API is not available
 function fallbackCopy(textToCopy, $input, $copy, $icon, $button) {
-    //var $input = $('#video_link')[0]; // Get the DOM element of the input
+    //var $input = $('#interview_link')[0]; // Get the DOM element of the input
 
     // Select the text field
     $input[0].select();
