@@ -334,6 +334,10 @@ var {
   font-size: 0.65rem !important;
 }
 
+.text-f10px {
+  font-size: 10px !important;
+}
+
 .text-italic {
   font-style: italic !important;
 }
