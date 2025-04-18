@@ -69,7 +69,7 @@
 {%
 set node_classes = [
   'node',
-  'video',
+  'interview',
   'node-type-' ~ node.bundle|clean_class,
   node.isPromoted() ? 'node-promoted',
   node.isSticky() ? 'node-sticky',
@@ -81,7 +81,7 @@ set node_classes = [
 <content{{ attributes.addClass(node_classes) }}>
   <div class="content-title pb-4">
     {# content-type #}
-    <div class="content-type no-print text-sm fw-normal">Video & Media</div>
+    <div class="content-type no-print text-sm fw-normal">Wawancara</div>
 
     {# page-title #}
     <div class="title text-xlg fw-bolder pt-4">{{ node.label }}</div>
@@ -97,21 +97,21 @@ set node_classes = [
 
   <div class="content-header no-print">
     <div class="grid grid2-60-40">
-      {# video image #}
+      {# interview image #}
       <div class="w-100 p-0">
-        <div class="video-image text-center">
-          {% if node.field_code_video is not empty %}
-            {% set embed_code = node.field_code_video.value %}
+        <div class="interview-image text-center">
+          {% if node.field_code_interview is not empty %}
+            {% set embed_code = node.field_code_interview.value %}
             {{ embed_code|raw }}
 
             <div class="image-title text-sm text-italic">
               {{ node.label }}
             </div>
 
-          {% elseif node.field_link_video is not empty and node.field_code_video is empty %}
-            {% set video_url = node.field_link_video.uri %}
-            {% if 'youtube' in video_url %}
-              {% set yt_id = video_url|split('?v=')|last %}
+          {% elseif node.field_link_interview is not empty and node.field_code_interview is empty %}
+            {% set interview_url = node.field_link_interview.uri %}
+            {% if 'youtube' in interview_url %}
+              {% set yt_id = interview_url|split('?v=')|last %}
               <iframe width="681" height="383" src="https://www.youtube.com/embed/{{ yt_id }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
               <div class="image-title text-sm text-italic">
@@ -120,23 +120,51 @@ set node_classes = [
             {% endif %}
 
           {% else %}
-            <img class="img-video border-radius-2xl" src="/sites/default/files/images/no-image.png">
+            <img class="img-interview border-radius-2xl" src="/sites/default/files/images/no-image.png">
           {% endif %}
         </div>
       </div>
 
       <div class="w-100 py-0 ps-5">
-        <div class="node-body py-2">
+        <div class="node-panelist py-2">
+          <div class="label d-inline">Panel undangan:</div>
+          <div class="display d-inline">
+            <a href="/panel/{{ node.field_panel.entity.id() }}">
+              <span class="fw-bold text-capital">
+                {{ node.field_panel.entity.label }}
+                {# ( {{ node.field_panel.entity.id() }} ) #}
+              </span>
+            </a>
+          </div>
+        </div>
+
+        <div class="node-channel py-2">
+          <div class="label d-inline">Saluran:</div>
+          <div class="display d-inline">
+            {% if node.field_select_channel.value == 'tv'  %}
+              TV - <a href="/tv_channel/{{ node.field_channel_tv.entity.id() }}">
+                {{ node.field_channel_tv.entity.label }}
+              </a>
+
+            {% elseif node.field_select_channel.value == 'radio' %}
+              Radio - <a href="/radio_channel/{{ node.field_channel_radio.entity.id() }}">
+              {{ node.field_channel_radio.entity.label }}
+              </a>
+            {% endif %}
+          </div>
+        </div>
+
+        <div class="node-body d-none py-2">
           <div class="display text-left">
             {{ node.body.value|t() }}
           </div>
         </div>
 
-        {% if node.field_link_video is not empty %}
+        {% if node.field_link_interview is not empty %}
           <div class="node-download no-print py-2">
             <div class="label hide">Download:</div>
             <div class="display text-start">
-              <input id="video_link" class="w-65 d-inline-block" type="text" readOnly value="{{ node.field_link_video.uri }}"/>
+              <input id="interview_link" class="w-65 d-inline-block" type="text" readOnly value="{{ node.field_link_interview.uri }}"/>
               <a id="copy_url" class="button w-30 d-inline-block text-center" href="javascript:;">
                 <i id="icon_copy" class="far fa-copy"></i>
                 <span id="copy_text">Salin</span>
@@ -176,11 +204,12 @@ set node_classes = [
   {% set body_text = node.body.value %}
   {% set max_length = 1000 %}
   {% set max = (body_text|length / max_length)|round %}
-  <div class="content-body hide">
+  <div class="content-body">
     <div class="display">
+      {{ content.body }}
     </div>
-  </div> {# video-body #}
+  </div> {# interview-body #}
 </content>
 
 {{ attach_library('kym/nodecss') }}
-{{ attach_library('kym/videojs') }}
+{{ attach_library('kym/interviewjs') }}

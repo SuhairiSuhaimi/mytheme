@@ -172,7 +172,7 @@ set node_classes = [
             <div class="dropdown-menu text-center">
               <ul class="menu">
                 <li>
-                  <a id="download_pdf" href="javascript:;">pdf</a>
+                  <a href="/node/{{ node.id }}/printable/pdf">pdf</a>
                 </li>
                 <li>
                   <a id="download_jpg" href="javascript:;">jpg</a>
@@ -184,28 +184,19 @@ set node_classes = [
             </div>
           </div>
         </div>
-
-        <div class="node-share hide no-print py-2">
-          {% set share_block = drupal_region('share_block', 'kym', true) %}
-          {% if share_block %}
-            <div class="text-sm mb-1">Kongsi:</div>
-            {{ share_block }}
-          {% endif %}
-        </div>
-
       </div>
     </div>
 
     {% if taxonomy_data is not empty %}
-      <div class="node-tag no-print mb-3 py-1">
+      <div class="node-ta mb-3 py-1">
         <div class="display d-inline">Tags:</div>
-        <ul class="d-inline">
+        <ul class="d-inline list-unstyled">
           {% set n = 0 %}
           {% for term in taxonomy_data %}
             {% if n > 0 %}
               ,
             {% endif %}
-            <li class="d-inline">
+            <li class="list-inline-item">
               <a href="{{ term.url }}">{{ term.name }}</a> {# ( {{ term.id }} ) #}
             </li>
             {% set n = n + 1 %}
@@ -230,14 +221,32 @@ set node_classes = [
       <div class="grid grid2-50-50">
         {% for image in node.field_image_infographic %}
           <div class="infographic-image text-center py-3 px-1">
-            <img class="img-infographic" src="{{ image|file_url }}">
+            <img class="img-infographic" src="{{ image|file_url }}" style="width: 600px;">
             {% if image.title %}
-              <div class="image-title text-sm">
+              <div class="image-title text-sm text-italic">
                 {{ image.title }}
               </div>
             {% endif %}
           </div>
         {% endfor %}
+      </div>
+    {% endif %}
+
+    {% if taxonomy_data is not empty %}
+      <div class="node-ta mb-3 py-1">
+        <div class="display d-inline">Tags:</div>
+        <ul class="d-inline list-unstyled">
+          {% set n = 0 %}
+          {% for term in taxonomy_data %}
+            {% if n > 0 %}
+              ,
+            {% endif %}
+            <li class="list-inline-item">
+              <a href="{{ term.url }}">{{ term.name }}</a> {# ( {{ term.id }} ) #}
+            </li>
+            {% set n = n + 1 %}
+          {% endfor %}
+        </ul>
       </div>
     {% endif %}
 

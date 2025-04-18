@@ -85,14 +85,6 @@ set node_classes = [
 
     {# page-title #}
     <div class="title text-xlg fw-bolder pt-4">{{ node.label }}</div>
-
-    <div class="node-share inline hide no-print py-2">
-      {% set share_block = drupal_region('share_block', 'kym', true) %}
-      {% if share_block %}
-        <div class="text-sm">Kongsi:</div>
-        {{ share_block }}
-      {% endif %}
-    </div>
   </div>
 
   <div class="content-header">
@@ -113,15 +105,17 @@ set node_classes = [
         <div class="node-date">
           <div class="label hide">Publish date:</div>
           <div class="display d-inline fw-bold">
-            {{ node.created.value|date('d/m/Y') }}
+            {{ node.field_date_published_article.value|date('d/m/Y') }}
           </div>
         </div>
 
         <div class="node-author py-2">
           <div class="label d-inline">Ditulis oleh:</div>
           <div class="display d-inline">
-            <a href="/user/{{ node.getOwnerId() }}/contact">
-              <span class="fw-bold text-capital">{{ node.getOwner.label }}</span>
+            <a href="/content/writer/{{ node.field_writer.entity.id() }}">
+              <span class="fw-bold text-capital">
+                {{ node.field_writer.entity.label }}
+              </span>
             </a>
           </div>
         </div>
@@ -130,16 +124,16 @@ set node_classes = [
           {% set url = node.field_link_article.uri %}
           <div class="node-publisher no-print py-2">
             <div class="label">Platform Penerbitan:</div>
-            <div class="display">
+            <div class="display text-center">
               {% if node.field_link_article.0.url.external %}
                 <a class="button w-70 text-center" href="{{ url }}" target="_blank">
-                  Baca di {{ publisher_name }}
+                  Baca di {{ node.field_publisher_article.entity.label }}
                   <i class="fas fa-arrow-right float-end mt-1"></i>
                 </a>
 
               {% else %}
                 <a class="button w-70 text-center" href="{{ url|replace({"internal:": ""}) }}">
-                  Baca di {{ publisher_name }}
+                  Baca di {{ node.field_publisher_article.entity.label }}
                   <i class="fas fa-arrow-right float-end mt-1"></i>
                 </a>
               {% endif %}
@@ -149,7 +143,7 @@ set node_classes = [
 
         <div class="node-download no-print py-2 dropdown-container">
           <div class="label hide">Download:</div>
-          <div class="display">
+          <div class="display text-center">
             <a id="print" class="button w-70 text-center" href="javascript:;">
               <i class="fas fa-download float-start mt-1"></i>
               Muat Turun Bahan
@@ -157,7 +151,7 @@ set node_classes = [
             <div class="dropdown-menu text-center">
               <ul class="menu">
                 <li>
-                  <a id="download_pdf" href="javascript:;">pdf</a>
+                  <a href="/node/{{ node.id }}/printable/pdf">pdf</a>
                 </li>
                 <li>
                   <a id="download_jpg" href="javascript:;">jpg</a>
@@ -182,15 +176,15 @@ set node_classes = [
     </div>
 
     {% if taxonomy_data is not empty %}
-      <div class="node-tag no-print mb-3 py-1">
+      <div class="node-tag mb-3 py-1">
         <div class="display d-inline">Tags:</div>
-        <ul class="d-inline">
+        <ul class="d-inline list-unstyled">
           {% set n = 0 %}
           {% for term in taxonomy_data %}
             {% if n > 0 %}
               ,
             {% endif %}
-            <li class="d-inline">
+            <li class="list-inline-item">
               <a href="{{ term.url }}">{{ term.name }}</a> {# ( {{ term.id }} ) #}
             </li>
             {% set n = n + 1 %}
@@ -211,7 +205,7 @@ set node_classes = [
   {% set max_length = 1000 %}
   {% set max = (body_text|length / max_length)|round %}
   {% set style = max > 1 ? 'style="height: 500px;"' %}
-  <div class="content-body">
+  <div class="content-body" {{ style }}>
     <div class="display">
       {{ content.body }}
     </div>

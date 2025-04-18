@@ -32,7 +32,7 @@
  *   classes:
  *   - node: The current template type (also known as a "theming hook").
  *   - node--type-[type]: The current node type. For example, if the node is an
- *     "Video" it would result in "node--type-video". Note that the machine
+ *     "Article" it would result in "node--type-article". Note that the machine
  *     name will often be in a short form of the human readable label.
  *   - node--view-mode-[view_mode]: The View Mode of the node; for example, a
  *     teaser would result in: "node--view-mode-teaser", and
@@ -69,7 +69,7 @@
 {%
 set node_classes = [
   'node',
-  'video',
+  'article',
   'node-type-' ~ node.bundle|clean_class,
   node.isPromoted() ? 'node-promoted',
   node.isSticky() ? 'node-sticky',
@@ -81,80 +81,54 @@ set node_classes = [
 <content{{ attributes.addClass(node_classes) }}>
   <div class="content-title pb-4">
     {# content-type #}
-    <div class="content-type no-print text-sm fw-normal">Video & Media</div>
+    <div class="content-type no-print text-sm text-normal">Artikel</div>
 
     {# page-title #}
-    <div class="title text-xlg fw-bolder pt-4">{{ node.label }}</div>
-
-    <div class="node-share inline no-print py-2">
-      {% set share_block = drupal_region('share_block', 'kym', true) %}
-      {% if share_block %}
-        <div class="text-sm">Kongsi:</div>
-        {{ share_block }}
-      {% endif %}
-    </div>
+    <div class="title text-xlg text-bolder pt-4">{{ node.label }}</div>
   </div>
 
-  <div class="content-header no-print">
-    <div class="grid grid2-60-40">
-      {# video image #}
-      <div class="w-100 p-0">
-        <div class="video-image text-center">
-          {% if node.field_code_video is not empty %}
-            {% set embed_code = node.field_code_video.value %}
-            {{ embed_code|raw }}
-
-            <div class="image-title text-sm text-italic">
-              {{ node.label }}
-            </div>
-
-          {% elseif node.field_link_video is not empty and node.field_code_video is empty %}
-            {% set video_url = node.field_link_video.uri %}
-            {% if 'youtube' in video_url %}
-              {% set yt_id = video_url|split('?v=')|last %}
-              <iframe width="681" height="383" src="https://www.youtube.com/embed/{{ yt_id }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
-              <div class="image-title text-sm text-italic">
-                {{ node.label }}
-              </div>
-            {% endif %}
+  <div class="content-header">
+    <div class="grid grid2-50-50">
+      {# article image #}
+      <div class="d-inline-block">
+        <div class="article-image text-center">
+          {% if node.field_image_article is not empty %}
+            <img class="img-article border-radius-2xl" src="{{ node.field_image_article|file_url }}">
 
           {% else %}
-            <img class="img-video border-radius-2xl" src="/sites/default/files/images/no-image.png">
+            <img class="img-article border-radius-2xl" src="/sites/default/files/images/no-image.png">
           {% endif %}
         </div>
       </div>
 
-      <div class="w-100 py-0 ps-5">
-        <div class="node-body py-2">
-          <div class="display text-left">
-            {{ node.body.value|t() }}
+      <div class="d-inline-block">
+        <div class="node-date">
+          <div class="label hide">Publish date:</div>
+          <div class="display d-inline text-bold">
+            {{ node.field_date_published_article.value|date('d/m/Y') }}
           </div>
         </div>
 
-        {% if node.field_link_video is not empty %}
-          <div class="node-download no-print py-2">
-            <div class="label hide">Download:</div>
-            <div class="display text-start">
-              <input id="video_link" class="w-65 d-inline-block" type="text" readOnly value="{{ node.field_link_video.uri }}"/>
-              <a id="copy_url" class="button w-30 d-inline-block text-center" href="javascript:;">
-                <i id="icon_copy" class="far fa-copy"></i>
-                <span id="copy_text">Salin</span>
-              </a>
-            </div>
+        <div class="node-author py-2">
+          <div class="label d-inline">Ditulis oleh:</div>
+          <div class="display d-inline">
+            <a href="/content/writer/{{ node.field_writer.entity.id() }}">
+              <span class="text-bold text-capital">
+                {{ node.field_writer.entity.label }}
+              </span>
+            </a>
           </div>
-        {% endif %}
+        </div>
       </div>
     </div>
 
     {% if taxonomy_data is not empty %}
-      <div class="node-tag no-print mb-3 py-1">
+      <div class="node-tag mb-3 py-1">
         <div class="display d-inline">Tags:</div>
         <ul class="d-inline list-unstyled">
           {% set n = 0 %}
           {% for term in taxonomy_data %}
             {% if n > 0 %}
-              ,
             {% endif %}
             <li class="list-inline-item">
               <a href="{{ term.url }}">{{ term.name }}</a> {# ( {{ term.id }} ) #}
@@ -176,11 +150,10 @@ set node_classes = [
   {% set body_text = node.body.value %}
   {% set max_length = 1000 %}
   {% set max = (body_text|length / max_length)|round %}
-  <div class="content-body hide">
+  {% set style = max > 1 ? 'style="height: 500px;"' %}
+  <div class="content-body">
     <div class="display">
+      {{ content.body }}
     </div>
-  </div> {# video-body #}
+  </div> {# article-body #}
 </content>
-
-{{ attach_library('kym/nodecss') }}
-{{ attach_library('kym/videojs') }}
