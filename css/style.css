@@ -4044,7 +4044,7 @@ div#sliding-popup, div#sliding-popup .eu-cookie-withdraw-banner, .eu-cookie-with
     opacity: 0;
     visibility: hidden;
     left: 0;
-    margin-top: 1px;
+    margin-top: 0px;
   }
   .region-primary-menu .submenu li {
     padding: 0;
